@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import cloudinary from "cloudinary";
 import { connectDB } from './config/db.js';
 
 
@@ -20,6 +21,13 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded payloads
 
 // Connect to the database
 connectDB();
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // Define routes
 app.get('/', (req, res) => {
